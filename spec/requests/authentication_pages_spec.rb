@@ -112,6 +112,14 @@ describe "AuthenticationPages" do
         specify { expect(response).to redirect_to(root_url) }
       end
     end
+
+    describe "when not signed in" do
+      before { visit root_path }
+
+      it { should_not have_link('Users',       href: users_path) }
+      it { should_not have_link('Sign out',    href: signout_path) }
+      it { should have_link('Sign in', href: signin_path) }
+    end
   end
 end
 
