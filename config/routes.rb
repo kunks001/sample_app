@@ -1,7 +1,12 @@
 SampleApp::Application.routes.draw do
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [ :create, :destroy]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :sessions,      only: [:new, :create, :destroy]
+  resources :microposts,    only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
   root  'static_pages#home'
 
@@ -68,5 +73,5 @@ SampleApp::Application.routes.draw do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
-  #   end
-end
+  #     end
+  end
